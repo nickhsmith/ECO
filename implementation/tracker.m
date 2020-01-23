@@ -5,12 +5,18 @@ function results = tracker(params)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Get sequence info
+write_video = false;
+output_name = 'Tracker_Result_video.avi';
+
+reset_box = false; 
 [seq, im] = get_sequence_info(params.seq);
 params = rmfield(params, 'seq');
 if isempty(im)
+    disp("HERE")
     seq.rect_position = [];
     [seq, results] = get_sequence_results(seq);
     return;
+  
 end
 
 % Init position
@@ -576,6 +582,7 @@ while true
     
     seq.time = seq.time + toc();
     
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %% Visualization
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -619,6 +626,7 @@ while true
             im_to_show = repmat(im_to_show, [1 1 3]);
         end
         if seq.frame == 1,  %first frame, create GUI
+            seq.rect_position(1,5) = 1
             fig_handle = figure('Name', 'Tracking');
 %             set(fig_handle, 'Position', [100, 100, size(im,2), size(im,1)]);
             imagesc(im_to_show);
@@ -628,17 +636,38 @@ while true
             hold off;
             axis off;axis image;set(gca, 'Units', 'normalized', 'Position', [0 0 1 1])
             
-%             output_name = 'Video_name';
-%             opengl software;
-%             writer = VideoWriter(output_name, 'MPEG-4');
-%             writer.FrameRate = 5;
-%             open(writer);
+             opengl software;
+             if(write_video == true)
+                 writer = VideoWriter(output_name);
+                 writer.FrameRate = 5;
+                 open(writer);
+             end
+             ButtonHandle = uicontrol('Style', 'PushButton', ...
+                         'String', 'Stop Video', ...
+                         'position', [20,20,100,20], ...
+                         'Callback', 'delete(gcbf)');
+              ButtonHandle2 = uicontrol('Style', 'PushButton', ...
+                         'String', 'Reset Bounding Box ', ...
+                         'position', [200,20,150,20], ...
+                         'Callback', @pause_video);
+             
         else
+             if ~ishandle(ButtonHandle)
+                disp('Loop stopped by user');
+                break;
+             end
+             if reset_box
+                 disp(seq.frame)
+                 new_rect = getrect
+                 new_size = [new_rect(1,4), new_rect(1,3)];
+                 pos = [new_rect(1,2), new_rect(1,1)] + (new_size-1) / 2;
+                 seq.rect_position(seq.frame,6) = 1
+                 reset_box = false
+             end
             % Do visualization of the sampled confidence scores overlayed
             resp_sz = round(img_support_sz*currentScaleFactor*scaleFactors(scale_ind));
             xs = floor(det_sample_pos(2)) + (1:resp_sz(2)) - floor(resp_sz(2)/2);
             ys = floor(det_sample_pos(1)) + (1:resp_sz(1)) - floor(resp_sz(1)/2);
-            
             % To visualize the continuous scores, sample them 10 times more
             % dense than output_sz. 
             sampled_scores_display = fftshift(sample_fs(scores_fs(:,:,scale_ind), 10*output_sz));
@@ -647,30 +676,35 @@ while true
 %                 set(fig_handle, 'Position', [100, 100, 100+size(im,2), 100+size(im,1)]);
             imagesc(im_to_show);
             hold on;
-            resp_handle = imagesc(xs, ys, sampled_scores_display); colormap hsv;
-            alpha(resp_handle, 0.5);
-            rectangle('Position',rect_position_vis, 'EdgeColor','g', 'LineWidth',2);
+            
+            resp_handle = imagesc(xs, ys, sampled_scores_display); colormap (colMapGen([0,255,0],[0,255,0],20,'midCol',[255,255,255])/255);
+            seq.rect_position(seq.frame,5) = max(sampled_scores_display,[],"all"); % max confidence
+            alpha(resp_handle, 0.5)
+            
+            rectangle('Position',rect_position_vis, 'EdgeColor','r', 'LineWidth',2);
             text(10, 10, int2str(seq.frame), 'color', [0 1 1]);
             hold off;
-            
+            pause(0.01)
 %                 axis off;axis image;set(gca, 'Units', 'normalized', 'Position', [0 0 1 1])
         end
-        
         drawnow
-%         if frame > 1
-%             if frame < inf
-%                 writeVideo(writer, getframe(gcf));
-%             else
-%                 close(writer);
-%             end
-%         end
-%          pause
+
+         if seq.frame > 1 && write_video 
+             if seq.frame < inf && ishandle(ButtonHandle)
+                 writeVideo(writer, getframe(gcf));
+             else
+                 close(writer);
+             end
+         end
+          
     end
 end
-
-% close(writer);
-
+ if write_video
+    close(writer);
+ end
+ close
 [seq, results] = get_sequence_results(seq);
-
+disp(results.res)
+results.res(results.res(:,1) == 0,:) = []
 disp(['fps: ' num2str(results.fps)])
 

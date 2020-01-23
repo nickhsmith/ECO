@@ -1,7 +1,7 @@
 function seq = report_tracking_result(seq, result)
 
 if strcmpi(seq.format, 'otb')
-    seq.rect_position(seq.frame,:) = round([result.center_pos([2,1]) - (result.target_size([2,1]) - 1)/2, result.target_size([2,1])]);
+    seq.rect_position(seq.frame,1:4) = round([result.center_pos([2,1]) - (result.target_size([2,1]) - 1)/2, result.target_size([2,1])]);
 elseif strcmpi(seq.format, 'vot')
     if seq.frame > 1
         bb_scale = 1;

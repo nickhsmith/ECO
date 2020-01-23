@@ -16,7 +16,7 @@ if strcmpi(seq.format, 'otb')
     seq.init_sz = [seq.init_rect(1,4), seq.init_rect(1,3)];
     seq.init_pos = [seq.init_rect(1,2), seq.init_rect(1,1)] + (seq.init_sz - 1)/2;
     seq.num_frames = numel(seq.image_files);
-    seq.rect_position = zeros(seq.num_frames, 4);
+    seq.rect_position = zeros(seq.num_frames, 6);
     init_image = imread(seq.image_files{1});
 elseif strcmpi(seq.format, 'vot')
     [seq.handle, init_image_file, init_region] = vot('polygon');
