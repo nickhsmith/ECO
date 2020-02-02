@@ -1,5 +1,85 @@
-### News: Check our [pytracking](https://github.com/visionml/pytracking) repository, which includes a PyTorch-based implementation of ECO and our most recent tracker [ATOM](https://arxiv.org/pdf/1811.07628.pdf).
+# IDP project for TUM 
+### Runtime requirements
+1) Install ECO and it's requirements  
+2) Split Video file frame by frame into a directory  ![ffmpeg](https://www.ffmpeg.org/) is a good tool for this
+	- Only images are contained in this folder
+	- All images within that file must be named in the following way:    
+		- 0001.jpg  0002.jpg  ...  9999.jpg    
+3) Run matlab with the -softwareopengl option  
+	- Open terminal  
+	- type `matlab -softwareopengl` to open Matlab  
+4) Navigate to the demo_ECO.m file change options as needed
+5) type `demo_ECO` into the terminal and hit enter
 
+If all things have gone correctly you should be prompted with a couple of steps  
+1) Select the folder containing all of the images you previously split
+2) A prompt on the command line, asking if you want to record the tracking results overlayed onto the video
+	- type `1` and hit enter to record the resulting tracking video output
+	- type anything else to not record
+2a) If you had typed 1 previously. Tell the program where to store the output file
+3) You will be prompted to define how many frames to use. This number represents how many frames will be used (3-5 seems to work well)
+	- 1 means every frame is used
+	- 2 means every other frame is used
+	- 10 means every 10th frame is used
+	- etc
+4) Using the bounding box tool. Select the player/object to track
+5) At any point during the video you can reset the bounding box or stop the video. If you decided to record the output (step 2) you *can not* change the size of the video during playback
+6) results of the tracking box are definied in the created object. `results.res` This matrix represents the columns (height,width,box height, box width, confidence measure (low is good), reset_flag-1 if you manually reset the box at this time step)
+
+## For Linux users the installation process is outlined below.  
+
+### Using git clone
+
+1. Clone the GIT repository:
+
+   $ git clone https://github.com/nickhsmith/ECO.git
+
+2. Clone the submodules.  
+   In the repository directory, run the commands:
+
+   $ git submodule init  
+   $ git submodule update
+
+3. Start Matlab and navigate to the repository.  
+   Run the install script:
+
+   |>> install
+
+4. Run the demo script to test the tracker:
+
+   |>> demo_ECO
+
+
+Note:  
+This package requires matconvnet [1], if you want to use deep CNN features, and PDollar Toolbox [2], if you want to use HOG features. Both these externals are included as git submodules and should be installed by following step 2. above.
+
+
+### Without using git
+
+You could also downlad and install without using git. This is however not recommented since it will be harder to incorporate updates and you will not get the correct versions of matconvnet and PDollar Toolbox.
+
+1. Download ZIP file from https://github.com/martin-danelljan/ECO and unpack it somewhere.
+
+2. Download matconvnet ZIP file from https://github.com/vlfeat/matconvnet and unpack it in the external_libs/matconvnet/ folder of the repository.
+   
+   Download PDollar Toolbox ZIP file from https://github.com/pdollar/toolbox and unpack it in the external_libs/pdollar_toolbox/ folder of the repository.
+
+Lastly, perform steps 3. and 4. above.
+
+
+##For Windows users installation is trickier.
+
+1) Download this repository  
+	- from the command line: `git clone https://github.com/nickhsmith/ECO.git`
+	- download the zip file and unzip in the location of your choosing 
+2) Install Visual Studio C/C++ compilers
+	- download the community package from ![Here](https://visualstudio.microsoft.com/vs/community/)
+	- follow the links and make sure to install the C/C++ development tools
+
+
+
+Below is the information for ECO
+==========
 # ECO
 
 Matlab implementation of the Efficient Convolution Operator (ECO) tracker.
@@ -37,7 +117,7 @@ http://www.cvl.isy.liu.se/research/objrec/visualtracking/ecotrack/index.html
 
 1. Clone the GIT repository:
 
-   $ git clone https://github.com/martin-danelljan/ECO.git
+   $ git clone https://github.com/nickhsmith/ECO.git
 
 2. Clone the submodules.  
    In the repository directory, run the commands:
@@ -207,3 +287,4 @@ Tracking performance may vary slightly on different machines and whether GPU sup
     https://sites.google.com/site/trackerbenchmark/benchmarks/v10
 
 [11] http://votchallenge.net/
+

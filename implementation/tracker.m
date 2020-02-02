@@ -5,9 +5,9 @@ function results = tracker(params)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Get sequence info
-write_video = false;
-output_name = 'Tracker_Result_video.avi';
-
+write_video = params.write_video;
+output_name = join([params.output_video_path '/Tracker_Result_video.avi']);
+disp(output_name)
 reset_box = false; 
 [seq, im] = get_sequence_info(params.seq);
 params = rmfield(params, 'seq');

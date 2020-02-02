@@ -1,4 +1,4 @@
-function results = testing_ECO(seq, res_path, bSaveImage, parameters)
+function results = testing_ECO(seq, write_video,output_video_path, parameters)
 
 % Feature specific parameters
 hog_params.cell_size = 4;
@@ -117,6 +117,8 @@ params.use_scale_filter = false;          % Use the fDSST scale filter or not (f
 % Visualization
 params.visualization = 1;               % Visualiza tracking and detection scores
 params.debug = 0;                       % Do full debug visualization
+params.write_video = write_video;
+params.output_video_path = output_video_path;
 
 % GPU
 params.use_gpu = false;                 % Enable GPU or not
@@ -125,4 +127,5 @@ params.gpu_id = [];                     % Set the GPU id, or leave empty to use 
 % Initialize
 params.seq = seq;
 % Run tracker
+disp(params)
 results = tracker(params);
