@@ -1,7 +1,12 @@
 # IDP project for TUM 
+This project was designed as a semester project to adapt existing tracking software to be user friendly and track single objects from overhead drone footage. This is meant to aide a researcher interested in the tracking of players or objects using video/images as input. The results are x,y pixel information as well as a "confidence" value output by the tracker.
+
+This tracker uses the ECO tracker designed and built by [Martin Danelljan](https://martin-danelljan.github.io/), Goutam Bhat, Fahad Khan, Michael Felsberg.  Their original README is appended to the end of my suggestions
+
+
 ### Runtime requirements
-1) Install ECO and it's requirements  
-2) Split Video file frame by frame into a directory  ![ffmpeg](https://www.ffmpeg.org/) is a good tool for this
+1) Install ECO and it's requirements (outlined below)
+2) Split Video file frame by frame into a directory  [ffmpeg](https://www.ffmpeg.org/) is a good tool for this
 	- Only images are contained in this folder
 	- All images within that file must be named in the following way:    
 		- 0001.jpg  0002.jpg  ...  9999.jpg    
@@ -26,7 +31,9 @@ If all things have gone correctly you should be prompted with a couple of steps
 5) At any point during the video you can reset the bounding box or stop the video. If you decided to record the output (step 2) you *can not* change the size of the video during playback
 6) results of the tracking box are definied in the created object. `results.res` This matrix represents the columns (height,width,box height, box width, confidence measure (low is good), reset_flag-1 if you manually reset the box at this time step)
 
-## For Linux users the installation process is outlined below.  
+
+##Installation
+### For Linux users the installation process is outlined below.  
 
 ### Using git clone
 
@@ -73,7 +80,7 @@ Lastly, perform steps 3. and 4. above.
 	- from the command line: `git clone https://github.com/nickhsmith/ECO.git`
 	- download the zip file and unzip in the location of your choosing 
 2) Install Visual Studio C/C++ compilers
-	- download the community package from ![Here](https://visualstudio.microsoft.com/vs/community/)
+	- download the community package from [Here](https://visualstudio.microsoft.com/vs/community/)
 	- follow the links and make sure to install the C/C++ development tools
 
 
