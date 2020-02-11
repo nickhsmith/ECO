@@ -12,7 +12,6 @@ reset_box = false;
 [seq, im] = get_sequence_info(params.seq);
 params = rmfield(params, 'seq');
 if isempty(im)
-    disp("HERE")
     seq.rect_position = [];
     [seq, results] = get_sequence_results(seq);
     return;
@@ -704,7 +703,6 @@ end
  end
  close
 [seq, results] = get_sequence_results(seq);
-disp(results.res)
 results.res(results.res(:,1) == 0,:) = []
 disp(['fps: ' num2str(results.fps)])
 

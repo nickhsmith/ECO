@@ -10,7 +10,6 @@ seq.format = 'otb';
 
 frame_select
 img_path = [video_path '/'];
-disp(img_path)
 if exist([img_path num2str(1, '%04i.png')], 'file'),
     img_files = num2str((1:frame_select:seq.len)', [img_path '%04i.png']);
 elseif exist([img_path num2str(1, '%04i.jpg')], 'file'),
@@ -21,13 +20,12 @@ else
     error('No image files to load.')
 end
 
-disp(seq.len)
 seq.s_frames = cellstr(img_files);
 frame1 = imread(seq.s_frames{1});
-imshow(frame1);
 disp("Select a Bounding Box on the Screen")
-seq.init_rect = getrect
-disp(seq)
+pause(1);
+imshow(frame1);
+seq.init_rect = getrect;
 close;
 end
 

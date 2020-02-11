@@ -81,7 +81,16 @@ Lastly, perform steps 3. and 4. above.
 	- download the zip file and unzip in the location of your choosing 
 2) Install Visual Studio C/C++ compilers
 	- download the community package from [Here](https://visualstudio.microsoft.com/vs/community/)
-	- follow the links and make sure to install the C/C++ development tools
+	- follow the links and make sure to install the **C/C++ development tools**
+3) Open Matlab using the softwareopengl option  
+	- type into the command console `mex setup C++`
+	- you should be able to see the visual studio option. Run the command to change your compiler `mex setup v
+4) Edit the Matlab Convnet compiler file. /ECO/external_libs/matconvnet/matlab/vl_compilenn.m
+	- On line 647 it should point to you visual studio compiler (cl.exe)
+	- Our example points to C://Program Files/Visual Studio/VC/Tools/MSVC/14.16.27023/bin/HostX64/x64. You may need to change your path to reflect your installation
+		- `cl_path = fullfile(cc.Location,"VC","Tools","MSVC","14.16.27023","bin","HostX64","x64");`
+
+5) Hopefully this all worked and you can run the command `install` from the matlab console prompt.
 
 
 

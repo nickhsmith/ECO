@@ -127,5 +127,4 @@ params.gpu_id = [];                     % Set the GPU id, or leave empty to use 
 % Initialize
 params.seq = seq;
 % Run tracker
-disp(params)
 results = tracker(params);
