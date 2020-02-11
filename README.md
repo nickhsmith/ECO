@@ -29,12 +29,12 @@ If all things have gone correctly you should be prompted with a couple of steps
 	- etc
 4) Using the bounding box tool. Select the player/object to track
 5) At any point during the video you can reset the bounding box or stop the video. If you decided to record the output (step 2) you *can not* change the size of the video during playback
-6) results of the tracking box are definied in the created object. `results.res` This matrix represents the columns (height,width,box height, box width, confidence measure (low is good), reset_flag-1 if you manually reset the box at this time step)
+6) results of the tracking box are definied in the created object. `results.res` This matrix represents the columns (height,width,box height, box width, confidence measure (low is good), reset_flag-1 if you manually reset the box at this time step)  
 
-
+  
 ##Installation
 ### For Linux users the installation process is outlined below.  
-
+  
 ### Using git clone
 
 1. Clone the GIT repository:
@@ -71,9 +71,9 @@ You could also downlad and install without using git. This is however not recomm
    
    Download PDollar Toolbox ZIP file from https://github.com/pdollar/toolbox and unpack it in the external_libs/pdollar_toolbox/ folder of the repository.
 
-Lastly, perform steps 3. and 4. above.
+Lastly, perform steps 3. and 4. above.  
 
-
+  
 ##For Windows users installation is trickier.
 
 1) Download this repository  
