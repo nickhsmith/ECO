@@ -32,7 +32,7 @@ If all things have gone correctly you should be prompted with a couple of steps
 6) results of the tracking box are definied in the created object. `results.res` This matrix represents the columns (height,width,box height, box width, confidence measure (low is good), reset_flag-1 if you manually reset the box at this time step)  
 
   
-##Installation
+###Installation
 ### For Linux users the installation process is outlined below.  
   
 ### Using git clone
@@ -74,7 +74,7 @@ You could also downlad and install without using git. This is however not recomm
 Lastly, perform steps 3. and 4. above.  
 
   
-##For Windows users installation is trickier.
+###For Windows users installation is trickier.
 
 1) Download this repository  
 	- from the command line: `git clone https://github.com/nickhsmith/ECO.git`
