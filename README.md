@@ -84,7 +84,7 @@ Lastly, perform steps 3. and 4. above.
 	- follow the links and make sure to install the **C/C++ development tools**
 3) Open Matlab using the softwareopengl option  
 	- type into the command console `mex setup C++`
-	- you should be able to see the visual studio option. Run the command to change your compiler `mex setup v
+	- you should be able to see the visual studio option. Run the command to change your compiler `mex setup Microsoft Visual C++ 2019`
 4) Edit the Matlab Convnet compiler file. /ECO/external_libs/matconvnet/matlab/vl_compilenn.m
 	- On line 647 it should point to you visual studio compiler (cl.exe)
 	- Our example points to C://Program Files/Visual Studio/VC/Tools/MSVC/14.16.27023/bin/HostX64/x64. You may need to change your path to reflect your installation
