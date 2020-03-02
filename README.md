@@ -20,6 +20,7 @@ If all things have gone correctly you should be prompted with a couple of steps
 1) Select the folder containing all of the images you previously split
 2) A prompt on the command line, asking if you want to record the tracking results overlayed onto the video
 	- type `1` and hit enter to record the resulting tracking video output
+		- If you type `1` you will be asked to name your file. This is a base name, no path, no extensions 
 	- type anything else to not record
 2a) If you had typed 1 previously. Tell the program where to store the output file
 3) You will be prompted to define how many frames to use. This number represents how many frames will be used (3-5 seems to work well)
